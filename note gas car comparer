@@ -1,0 +1,73 @@
+
+# Gas Price Differences Comparison
+# notes to improve - can I combine a and b so user does not have to enter everything twice?
+def compare_cars():
+    def car_inputs():
+        a_car_title = str(input("Enter Make and Model of First Car: "))
+
+        ahighway_mpg = float(input("Enter the Highway MPG of the First Car (ex: 32): "))
+
+        acity_mpg = float(input("Enter the City MPG of the First Car (ex: 24): "))
+
+        acar_monthly_payment = float(input("Enter you expected monthly payment for the First Car(ex: 452.98): "))
+
+        b_car_title = str(input("Enter Make and Model of Second Car: "))
+
+        bhighway_mpg = float(input("Enter the Highway MPG of the Second Car (ex: 32): "))
+
+        bcity_mpg = float(input("Enter the City MPG of the Second Car (ex: 24): "))
+
+        bcar_monthly_payment = float(input("Enter you expected monthly payment for the Second Car(ex: 452.98): "))
+
+        alocal_gas_per_gallon_cost = float(input("Enter a cost per gallon (ex: 2.35): "))
+
+        # weekdays
+
+        ahighway_miles_per_workweek = float(input("Enter your daily workday "
+                                                  "highway miles, to and from combined. Enter 0 if none. "
+                                                  "(ex: 88; 44 to and 44 back): ")) * 5 * 52
+
+        acity_miles_per_workweek = float(input("Enter your daily workday city miles. Enter 0 if none."
+                                               "(ex: 16): ")) * 5 * 52
+
+        # weekends
+
+        ahighway_miles_per_weekend = float(input("Enter your estimated daily highway miles on"
+                                                 " a weekend day. Enter 0 if none. "
+                                                 "(ex: 54): ")) * 2 * 52
+
+        acity_miles_per_weekend = float(input('Enter your estimated daily city miles on a weekend day. Enter 0'
+                                              ' if none. (ex: 18): ')) * 2 * 52
+
+        awkday_highway_cost = ((ahighway_miles_per_workweek / ahighway_mpg) * alocal_gas_per_gallon_cost)
+        awkday_city_cost = ((acity_miles_per_workweek / acity_mpg) * alocal_gas_per_gallon_cost)
+        awknd_highway_cost = ((ahighway_miles_per_weekend / ahighway_mpg) * alocal_gas_per_gallon_cost)
+        awknd_city_cost = ((acity_miles_per_weekend / acity_mpg) * alocal_gas_per_gallon_cost)
+
+        bwkday_highway_cost = ((ahighway_miles_per_workweek / bhighway_mpg) * alocal_gas_per_gallon_cost)
+        bwkday_city_cost = ((acity_miles_per_workweek / bcity_mpg) * alocal_gas_per_gallon_cost)
+        bwknd_highway_cost = ((ahighway_miles_per_weekend / bhighway_mpg) * alocal_gas_per_gallon_cost)
+        bwknd_city_cost = ((acity_miles_per_weekend / bcity_mpg) * alocal_gas_per_gallon_cost)
+
+        atotal_gas_cost = awkday_highway_cost + awkday_city_cost + awknd_highway_cost + awknd_city_cost
+        atotal_note_cost = acar_monthly_payment * 12
+        car_a_total = atotal_note_cost + atotal_gas_cost
+
+        btotal_gas_cost = bwkday_highway_cost + bwkday_city_cost + bwknd_highway_cost + bwknd_city_cost
+        btotal_note_cost = bcar_monthly_payment * 12
+        car_b_total = btotal_gas_cost + btotal_note_cost
+
+        return car_a_total, car_b_total, a_car_title, b_car_title
+
+    car_a_total_sc, car_b_total_sc, acar_title, bcar_title = car_inputs()
+    if car_a_total_sc > car_b_total_sc:
+        difference = round(float(car_a_total_sc - car_b_total_sc), 2)
+        return "Your total savings on {car_b} over {car_a} are:".format(car_b=bcar_title, car_a=acar_title), \
+               difference
+    elif car_b_total_sc > car_a_total_sc:
+        difference = str(round(float(car_b_total_sc - car_a_total_sc), 2))
+        return "Your total savings on the {car_a} over the {car_b} are approximately," \
+               " ${difference1}:".format(car_a=acar_title, car_b=bcar_title, difference1=difference)
+
+
+print(compare_cars())
